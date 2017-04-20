@@ -1,2 +1,6 @@
+# env
+*.komodo*
+
+# phalcon
 /cache/
 /config/development/
