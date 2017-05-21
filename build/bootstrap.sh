@@ -12,7 +12,7 @@ apt-get install -y mongodb-org
 
 # setup php
 apt-get install -y python-software-properties
-apt-get install -y php7.1 php7.1-fpm php7.1-cli php7.1-phalcon php7.1-mongo
+apt-get install -y php7.1 php7.1-fpm php7.1-cli php7.1-phalcon php7.1-mongo php7.1-mbstring
 
 # setup composer
 apt-get install -y git unzip
