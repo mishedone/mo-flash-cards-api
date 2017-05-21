@@ -22,14 +22,10 @@ try {
     // add some make-up to the end response
     $app->after(function () use ($app) {
         $return = $app->getReturnedValue();
-
-        // TODO: integrate JMS serializer here
+        
+        // automatically transform arrays to json
         if (is_array($return)) {
-            $app->response->setContent(json_encode($return));
-        } elseif (!strlen($return)) {
-            $app->response->setStatusCode('204', 'No Content');
-        } else {
-            throw new \Exception('Bad Response');
+            $app->response->setJsonContent($return);
         }
 
         $app->response->send();
