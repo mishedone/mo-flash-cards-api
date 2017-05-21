@@ -21,7 +21,12 @@ curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
 # clean up
 apt-get --purge -y autoremove
 
-# setup swap before composer install
+# install configurations
+if [ ! -f /vagrant/config/config.ini ]; then
+    cp /vagrant/config/config.dist.ini /vagrant/config/config.ini
+fi
+
+# setup swap
 # https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-14-04
 if ! [ -f /swapfile ]; then
     fallocate -l 2G /swapfile

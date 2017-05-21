@@ -1,5 +1,5 @@
 <?php
 
-use Phalcon\Config;
+use Phalcon\Config\Adapter\Ini as ConfigIni;
 
-return new Config([]);
+return new ConfigIni(__DIR__ . '/config.ini');
