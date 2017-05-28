@@ -7,34 +7,19 @@ $container = new Container();
 // global configuration
 $container->setShared('config', $config);
 
-// database service
-$container->setShared('doctrine', function () use ($container) {
-    $mongo = $container->get('config')->mongo;
-    
-    $connection = new Doctrine\MongoDB\Connection($mongo->dsn);
-    $driver = Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver::create([
-        __DIR__ . '/../contexts/resource/models'
-    ]);
-    
-    $config = new Doctrine\ODM\MongoDB\Configuration();
-    $config->setProxyDir(__DIR__ . '/../cache/Proxies');
-    $config->setProxyNamespace('Proxies');
-    $config->setHydratorDir(__DIR__ . '/../cache/Hydrators');
-    $config->setHydratorNamespace('Hydrators');
-    $config->setDefaultDB($mongo->db);
-    $config->setMetadataDriverImpl($driver);
+// database services
+$container->setShared('mongo', function () use ($config) {
+    $mongo = new Phalcon\Db\Adapter\MongoDB\Client($config->mongo->dsn);
 
-    $driver::registerAnnotationClasses();
-
-    return Doctrine\ODM\MongoDB\DocumentManager::create($connection, $config);
+    return $mongo->selectDatabase($config->mongo->db);
+});
+$container->setShared('collectionManager', function () {
+    return new Phalcon\Mvc\Collection\Manager();
 });
 
 // resource context services
-$container->setShared('textToSpeechService', function () use ($container) {
-    return new ResourceContext\Service\TextToSpeechService(
-        $container->get('doctrine'),
-        $container->get('config')->textToSpeech->apiKey
-    );
+$container->setShared('soundService', function () use ($config) {
+    return new ResourceContext\Service\SoundService($config->sounds->key);
 });
 
 return $container;
