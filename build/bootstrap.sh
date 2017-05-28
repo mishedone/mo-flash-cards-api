@@ -37,3 +37,5 @@ if ! [ -f /swapfile ]; then
 fi
 
 # TODO: turn on display_errors for PHP
+
+# TODO: run composer install
