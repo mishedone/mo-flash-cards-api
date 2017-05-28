@@ -7,7 +7,7 @@ use Phalcon\Mvc\MongoCollection;
 class Sound extends MongoCollection
 {
     public $_id;
-    public $text;
+    public $text; // TODO: create unique index here!!!
     protected $audio;
     
     /**
