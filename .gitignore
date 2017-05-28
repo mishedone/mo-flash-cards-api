@@ -2,9 +2,12 @@
 .vagrant
 *.komodo*
 
+# cache
+cache/*
+!cache/.gitkeep
+
 # phalcon
-/cache/
-/config/config.ini
+config/config.ini
 
 # composer
 vendor
