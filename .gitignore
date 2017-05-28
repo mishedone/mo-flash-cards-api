@@ -5,3 +5,6 @@
 # phalcon
 /cache/
 /config/config.ini
+
+# composer
+vendor
