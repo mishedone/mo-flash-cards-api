@@ -1,5 +1,9 @@
 {
     "require": {
-        "phalcon/incubator": "^3.1"
+        "alcaeus/mongo-php-adapter": "^1.1",
+        "doctrine/mongodb-odm": "^1.1"
+    },
+    "provide": {
+        "ext-mongo": "1.6.14"
     }
 }
