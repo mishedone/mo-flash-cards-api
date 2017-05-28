@@ -11,5 +11,4 @@ $loader->registerNamespaces([
 ])->register();
 
 // add Composer stuff
-$composer = require_once __DIR__ . '/../vendor/autoload.php';
-$composer->add('models', __DIR__ . '/..');
+require_once __DIR__ . '/../vendor/autoload.php';
