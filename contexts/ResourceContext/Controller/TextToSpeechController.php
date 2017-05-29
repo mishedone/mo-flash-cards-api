@@ -4,16 +4,16 @@ namespace ResourceContext\Controller;
 
 use Phalcon\Mvc\Controller;
 
-class SoundController extends Controller
+class TextToSpeechController extends Controller
 {    
     /**
      * Returns an audio/mpeg pronouncing the text parameter.
      *
      * @param string $text
      */
-    public function fromTextAction($text)
+    public function getAction($text)
     {
-        $audio = $this->soundService->fromText($text)->getAudio();
+        $audio = $this->textToSpeechService->get($text)->getAudio();
         
         $this->response->setContent($audio);
         $this->response->setContentType('audio/mpeg');

@@ -4,10 +4,10 @@ namespace ResourceContext\Model;
 
 use Phalcon\Mvc\MongoCollection;
 
-class Sound extends MongoCollection
+class TextToSpeech extends MongoCollection
 {
     public $_id;
-    public $text; // TODO: create unique index here!!!
+    protected $text; // TODO: create unique index here!!!
     protected $audio;
     
     /**
@@ -15,9 +15,9 @@ class Sound extends MongoCollection
      */
     public function getSource()
     {
-        return 'resources.sounds';
+        return 'resources.texttospeech';
     }
-    
+
     /**
      * @return string
      */
@@ -27,26 +27,25 @@ class Sound extends MongoCollection
     }
     
     /**
+     * @param string $text
      * @param string $audio
      */
-    public function setAudio($audio)
+    public function init($text, $audio)
     {
+        $this->text = $text;
         $this->audio = base64_encode($audio);
     }
     
     /**
-     * Factory method.
-     *
      * @param string $text
      * @param string $audio
-     * @return Sound
+     * @return TextToSpeech
      */
     public static function build($text, $audio)
     {
-        $sound = new self();
-        $sound->text = $text;
-        $sound->setAudio($audio);
+        $textToSpeech = new TextToSpeech();
+        $textToSpeech->init($text, $audio);
         
-        return $sound;
+        return $textToSpeech;
     }
 }

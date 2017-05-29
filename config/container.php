@@ -18,8 +18,10 @@ $container->setShared('collectionManager', function () {
 });
 
 // resource context services
-$container->setShared('soundService', function () use ($config) {
-    return new ResourceContext\Service\SoundService($config->sounds->key);
+$container->setShared('textToSpeechService', function () use ($config) {
+    return new ResourceContext\Service\TextToSpeechService(
+        $config->sounds->key
+    );
 });
 
 return $container;

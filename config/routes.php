@@ -1,12 +1,13 @@
 <?php
 
 use Phalcon\Mvc\Micro\Collection as MicroCollection;
+use ResourceContext\Controller\TextToSpeechController;
 
-$sounds = new MicroCollection();
-$sounds->setHandler('ResourceContext\Controller\SoundController', true);
-$sounds->setPrefix('/api/sounds');
-$sounds->get('/from-text/{text}', 'fromTextAction');
-$app->mount($sounds);
+$textToSpeech = new MicroCollection();
+$textToSpeech->setHandler(TextToSpeechController::class, true);
+$textToSpeech->setPrefix('/api');
+$textToSpeech->get('/text-to-speech/{text}', 'getAction');
+$app->mount($textToSpeech);
 
 // not found
 $app->notFound(function () {

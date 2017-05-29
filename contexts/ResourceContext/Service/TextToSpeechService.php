@@ -2,9 +2,9 @@
 
 namespace ResourceContext\Service;
 
-use ResourceContext\Model\Sound;
+use ResourceContext\Model\TextToSpeech;
 
-class SoundService
+class TextToSpeechService
 {    
     /**
      * @var string
@@ -21,15 +21,15 @@ class SoundService
     
     /**
      * @param string $text
-     * @return Sound
+     * @return TextToSpeech
      */
-    public function fromText($text)
+    public function get($text)
     {
         $text = mb_strtolower($text, 'UTF-8');
-        $sound = Sound::findFirst([['text' => $text]]);
+        $textToSpeech = TextToSpeech::findFirst([['text' => $text]]);
 
         // we do not have the audio cached so fetch it
-        if (!$sound) {
+        if (!$textToSpeech) {
             $query = http_build_query([
                 'key' => $this->apiKey,
                 'hl' => 'en-gb',
@@ -40,11 +40,11 @@ class SoundService
             $audio = file_get_contents('https://api.voicerss.org/?' . $query);
             
             // create new text to speech and cache it for next requests
-            $sound = Sound::build($text, $audio);
-            $sound->save();
+            $textToSpeech = TextToSpeech::build($text, $audio);
+            $textToSpeech->save();
         }
         
-        return $sound;
+        return $textToSpeech;
     }
 }
     
