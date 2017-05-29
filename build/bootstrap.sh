@@ -35,7 +35,3 @@ if ! [ -f /swapfile ]; then
     swapon /swapfile
     echo "/swapfile   none    swap    sw    0   0" >> /etc/fstab
 fi
-
-# TODO: turn on display_errors for PHP
-
-# TODO: run composer install

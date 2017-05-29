@@ -7,7 +7,7 @@ use Phalcon\Mvc\MongoCollection;
 class TextToSpeech extends MongoCollection
 {
     public $_id;
-    protected $text; // TODO: create unique index here!!!
+    protected $text;
     protected $audio;
     
     /**
@@ -34,18 +34,5 @@ class TextToSpeech extends MongoCollection
     {
         $this->text = $text;
         $this->audio = base64_encode($audio);
-    }
-    
-    /**
-     * @param string $text
-     * @param string $audio
-     * @return TextToSpeech
-     */
-    public static function build($text, $audio)
-    {
-        $textToSpeech = new TextToSpeech();
-        $textToSpeech->init($text, $audio);
-        
-        return $textToSpeech;
     }
 }
