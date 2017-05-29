@@ -3,20 +3,28 @@
 namespace ResourceContext\Service;
 
 use ResourceContext\Model\TextToSpeech;
+use ResourceContext\Repository\TextToSpeechRepository;
 
 class TextToSpeechService
-{    
+{
+    /**
+     * @var TextToSpeechRepository
+     */
+    protected $repository;
+    
     /**
      * @var string
      */
-    protected $apiKey;
+    protected $key;
     
     /**
-     * @param string $apiKey
+     * @param TextToSpeechRepository $repository
+     * @param string                 $key
      */
-    public function __construct($apiKey)
+    public function __construct(TextToSpeechRepository $repository, $key)
     {
-        $this->apiKey = $apiKey;
+        $this->repository = $repository;
+        $this->key = $key;
     }
     
     /**
@@ -26,12 +34,12 @@ class TextToSpeechService
     public function get($text)
     {
         $text = mb_strtolower($text, 'UTF-8');
-        $textToSpeech = TextToSpeech::findFirst([['text' => $text]]);
+        $textToSpeech = $this->repository->findByText($text);
 
         // we do not have the audio cached so fetch it
         if (!$textToSpeech) {
             $query = http_build_query([
-                'key' => $this->apiKey,
+                'key' => $this->key,
                 'hl' => 'en-gb',
                 'src' => $text,
                 'c' => 'mp3',
@@ -40,7 +48,7 @@ class TextToSpeechService
             $audio = file_get_contents('https://api.voicerss.org/?' . $query);
             
             // create new text to speech and cache it for next requests
-            $textToSpeech = TextToSpeech::build($text, $audio);
+            $textToSpeech = $this->repository->create($text, $audio);
             $textToSpeech->save();
         }
         
