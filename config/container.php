@@ -21,8 +21,8 @@ $container->setShared('collectionManager', function () {
 $container->setShared('textToSpeechRepository', function () {
     return new ResourceContext\Repository\TextToSpeechRepository();
 });
-$container->setShared('textToSpeechService', function () use ($container) {
-    return new ResourceContext\Service\TextToSpeechService(
+$container->setShared('textToSpeechManager', function () use ($container) {
+    return new ResourceContext\Manager\TextToSpeechManager(
         $container->getShared('textToSpeechRepository'),
         $container->getShared('config')->texttospeech->key
     );

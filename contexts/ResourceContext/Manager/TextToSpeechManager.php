@@ -1,11 +1,11 @@
 <?php
 
-namespace ResourceContext\Service;
+namespace ResourceContext\Manager;
 
 use ResourceContext\Model\TextToSpeech;
 use ResourceContext\Repository\TextToSpeechRepository;
 
-class TextToSpeechService
+class TextToSpeechManager
 {
     /**
      * @var TextToSpeechRepository
