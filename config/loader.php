@@ -9,6 +9,9 @@ $loader->registerNamespaces([
     
     // contexts
     'DeckContext' => __DIR__ . '/../contexts/DeckContext/',
-    'ResourceContext' => __DIR__ . '/../contexts/ResourceContext/'
+    'ResourceContext' => __DIR__ . '/../contexts/ResourceContext/',
+    
+    // tooling
+    'Tools' => __DIR__ . '/../tools/'
 ]);
 $loader->register();

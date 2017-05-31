@@ -4,9 +4,15 @@ namespace ResourceContext\Manager;
 
 use ResourceContext\Model\TextToSpeech;
 use ResourceContext\Repository\TextToSpeechRepository;
+use Tools\ModelManager;
 
 class TextToSpeechManager
 {
+    /**
+     * @var ModelManager
+     */
+    protected $manager;
+    
     /**
      * @var TextToSpeechRepository
      */
@@ -18,11 +24,16 @@ class TextToSpeechManager
     protected $key;
     
     /**
+     * @param ModelManager           $manager
      * @param TextToSpeechRepository $repository
      * @param string                 $key
      */
-    public function __construct(TextToSpeechRepository $repository, $key)
-    {
+    public function __construct(
+        ModelManager $manager,
+        TextToSpeechRepository $repository,
+        $key
+    ) {
+        $this->manager = $manager;
         $this->repository = $repository;
         $this->key = $key;
     }
@@ -49,7 +60,7 @@ class TextToSpeechManager
             
             // create new text to speech and cache it for next requests
             $textToSpeech = $this->repository->create($text, $audio);
-            $textToSpeech->save();
+            $this->manager->persist($textToSpeech);
         }
         
         return $textToSpeech;

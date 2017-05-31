@@ -14,6 +14,7 @@ class TextToSpeechController extends Controller
     public function getAction($text)
     {
         $audio = $this->textToSpeechManager->get($text)->getAudio();
+        $this->modelManager->flush();
         
         $this->response->setContent($audio);
         $this->response->setContentType('audio/mpeg');

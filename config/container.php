@@ -16,6 +16,9 @@ $container->setShared('mongo', function () use ($config) {
 $container->setShared('collectionManager', function () {
     return new Phalcon\Mvc\Collection\Manager();
 });
+$container->setShared('modelManager', function () {
+    return new Tools\ModelManager();
+});
 
 // resource context services
 $container->setShared('textToSpeechRepository', function () {
@@ -23,6 +26,7 @@ $container->setShared('textToSpeechRepository', function () {
 });
 $container->setShared('textToSpeechManager', function () use ($container) {
     return new ResourceContext\Manager\TextToSpeechManager(
+        $container->getShared('modelManager'),
         $container->getShared('textToSpeechRepository'),
         $container->getShared('config')->texttospeech->key
     );
