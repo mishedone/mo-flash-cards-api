@@ -1,9 +1,5 @@
 <?php
 
-use Phalcon\DI\FactoryDefault as Container;
-
-$container = new Container();
-
 // global configuration
 $container->setShared('config', $config);
 
@@ -31,5 +27,3 @@ $container->setShared('textToSpeechManager', function () use ($container) {
         $container->getShared('config')->texttospeech->key
     );
 });
-
-return $container;

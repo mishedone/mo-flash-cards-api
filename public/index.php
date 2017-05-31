@@ -1,5 +1,6 @@
 <?php
 
+use Phalcon\DI\FactoryDefault as Container;
 use Phalcon\Mvc\Micro as Application;
 
 // ok - let's start this bit..
@@ -8,10 +9,12 @@ try {
     $config = require(__DIR__ . '/../config/config.php');
 
     // autoloading
-    require __DIR__ . '/../config/loader.php';
+    $loader = require __DIR__ . '/../config/loader.php';
+    $loader->register();
     
     // dependency injection
-    $container = require __DIR__ . '/../config/container.php';
+    $container = new Container();
+    require __DIR__ . '/../config/container.php';
 
     // application bootstrap
     $app = new Application($container);

@@ -14,4 +14,5 @@ $loader->registerNamespaces([
     // tooling
     'Tools' => __DIR__ . '/../tools/'
 ]);
-$loader->register();
+
+return $loader;
