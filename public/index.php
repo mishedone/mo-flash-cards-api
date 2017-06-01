@@ -37,7 +37,7 @@ try {
     // start handling
     $app->handle();
 } catch (\Exception $e) {
-    var_dump($e);
+    echo $e->getMessage();
 } catch (\Error $e) {
-    var_dump($e);
+    echo $e->getMessage();
 }

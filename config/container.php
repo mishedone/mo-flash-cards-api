@@ -16,6 +16,11 @@ $container->setShared('modelManager', function () {
     return new Tools\ModelManager();
 });
 
+// deck context services
+$container->setShared('deckRepository', function () {
+    return new DeckContext\Repository\DeckRepository();
+});
+
 // resource context services
 $container->setShared('textToSpeechRepository', function () {
     return new ResourceContext\Repository\TextToSpeechRepository();

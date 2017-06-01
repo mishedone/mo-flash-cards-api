@@ -40,7 +40,7 @@ try {
     echo $e->getMessage();
     exit(255);
 } catch (\Exception $e) {
-    var_dump($e);
+    echo $e->getMessage();
 } catch (\Error $e) {
-    var_dump($e);
+    echo $e->getMessage();
 }
