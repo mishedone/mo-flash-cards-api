@@ -9,7 +9,7 @@ class Deck extends MongoCollection
     public $_id;
     protected $name;
     protected $slug;
-    public $cards;
+    protected $cards;
     
     /**
      * @return string
@@ -17,6 +17,30 @@ class Deck extends MongoCollection
     public function getSource()
     {
         return 'decks.decks';
+    }
+    
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getCards()
+    {
+        return $this->cards;
     }
     
     /**

@@ -20,4 +20,30 @@ class DeckRepository
         
         return $deck;
     }
+    
+    /**
+     * Lists the names and slugs of all available decks.
+     *
+     * @return array
+     */
+    public function list()
+    {
+        return Deck::find([
+            'fields' => [
+                'name' => true,
+                'slug' => true
+            ]
+        ]);
+    }
+    
+    /**
+     * Searches for a deck by its slug.
+     *
+     * @param string $slug
+     * @return Deck|false
+     */
+    public function findBySlug($slug)
+    {
+        return Deck::findFirst([['slug' => $slug]]);
+    }
 }
