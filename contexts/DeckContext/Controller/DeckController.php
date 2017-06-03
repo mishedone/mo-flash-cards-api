@@ -14,7 +14,7 @@ class DeckController extends Controller
     public function listAction()
     {
         $decks = $this->deckRepository->list();
-        
+
         return array_map(function ($deck) {
             return [
                 'name' => $deck->getName(),
@@ -34,9 +34,7 @@ class DeckController extends Controller
         $deck = $this->deckRepository->findBySlug($slug);
             
         if (!$deck) {
-            $this->response->setStatusCode(404);
-            
-            return;
+            return $this->responseFactory->create404();
         }
         
         return [

@@ -15,6 +15,7 @@ try {
     // dependency injection
     $container = new Container();
     require __DIR__ . '/../config/container.php';
+    $responses = $container->getShared('responseFactory');
 
     // application bootstrap
     $app = new Application($container);
@@ -37,7 +38,7 @@ try {
     // start handling
     $app->handle();
 } catch (\Exception $e) {
-    echo $e->getMessage();
+    $responses->create500($e->getMessage())->send();
 } catch (\Error $e) {
-    echo $e->getMessage();
+    $responses->create500($e->getMessage())->send();
 }

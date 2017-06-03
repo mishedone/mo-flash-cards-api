@@ -3,6 +3,11 @@
 // global configuration
 $container->setShared('config', $config);
 
+// http services
+$container->setShared('responseFactory', function () {
+    return new Tools\ResponseFactory();
+});
+
 // database services
 $container->setShared('mongo', function () use ($config) {
     $mongo = new Phalcon\Db\Adapter\MongoDB\Client($config->mongo->dsn);

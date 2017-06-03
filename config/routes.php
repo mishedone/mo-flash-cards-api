@@ -17,6 +17,6 @@ $textToSpeech->get('/api/text-to-speech/{text}', 'getAction');
 $app->mount($textToSpeech);
 
 // not found
-$app->notFound(function () {
-    throw new \Exception('Not Found');
+$app->notFound(function () use ($container) {
+    $container->getShared('responseFactory')->create404()->send();
 });
