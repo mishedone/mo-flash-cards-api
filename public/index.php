@@ -8,7 +8,7 @@ try {
     // configuration
     $config = require(__DIR__ . '/../config/config.php');
 
-    // autoloading
+    // loader
     $loader = require __DIR__ . '/../config/loader.php';
     $loader->register();
     
@@ -24,12 +24,17 @@ try {
     require __DIR__ . '/../config/routes.php';
 
     // add some make-up to the end response
-    $app->after(function () use ($app) {
+    $app->after(function () use ($app, $config) {
         $return = $app->getReturnedValue();
         
         // automatically transform arrays to json
         if (is_array($return)) {
             $app->response->setJsonContent($return);
+        }
+
+        // allow cross origin requests
+        if (!empty($config->cors->allow)) {
+            $app->response->setHeader('Access-Control-Allow-Origin', $config->cors->allow);
         }
 
         $app->response->send();
