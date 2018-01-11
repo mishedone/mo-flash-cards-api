@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# fix locales (mongo cli access is broken otherwise)
+export LANGUAGE="en_US.UTF-8"
+echo 'LANGUAGE="en_US.UTF-8"' >> /etc/default/locale
+echo 'LC_ALL="en_US.UTF-8"' >> /etc/default/locale
+
 # add repositories
 add-apt-repository ppa:ondrej/php
 curl -s https://packagecloud.io/install/repositories/phalcon/stable/script.deb.sh | bash
