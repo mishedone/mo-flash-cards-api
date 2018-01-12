@@ -5,9 +5,17 @@ use Phalcon\Mvc\Micro\Collection as MicroCollection;
 use DeckContext\Controller\DeckController;
 use ResourceContext\Controller\TextToSpeechController;
 
+$app->get('/api/v1', function () use ($app) {
+    return [
+        '_links' => [
+            'decks' => $app->url->get(['for' => 'deck-list']),
+        ]
+    ];
+});
+
 $decks = new MicroCollection();
 $decks->setHandler(DeckController::class, true);
-$decks->get('/api/decks', 'listAction');
+$decks->get('/api/decks', 'listAction', 'deck-list');
 $decks->get('/api/decks/{slug}', 'getAction');
 $app->mount($decks);
 
