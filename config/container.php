@@ -8,6 +8,18 @@ $container->setShared('responseFactory', function () {
     return new Tools\ResponseFactory();
 });
 
+// routing services
+$container->setShared('url', function () {
+    $url = new Phalcon\Mvc\Url();
+    $request = new Phalcon\Http\Request();
+
+    // set base uri to an absolute value
+    $schema = $request->getServer('HTTPS') ? 'https' : 'http';
+    $url->setBaseUri($schema . '://' . $request->getServer('HTTP_HOST') . '/');
+
+    return $url;
+});
+
 // database services
 $container->setShared('mongo', function () use ($config) {
     $mongo = new Phalcon\Db\Adapter\MongoDB\Client($config->mongo->dsn);
