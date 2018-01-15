@@ -11,7 +11,7 @@ class DeckController extends Controller
      *
      * @return array
      */
-    public function listAction()
+    public function list()
     {
         $decks = $this->deckRepository->list();
 
@@ -29,7 +29,7 @@ class DeckController extends Controller
      * @param string $slug
      * @return array
      */
-    public function getAction($slug)
+    public function get($slug)
     {
         $deck = $this->deckRepository->findBySlug($slug);
             

@@ -11,7 +11,7 @@ class TextToSpeechController extends Controller
      *
      * @param string $text
      */
-    public function getAction($text)
+    public function get($text)
     {
         $decodedText = base64_decode($text);
         $audio = $this->textToSpeechManager->get($decodedText)->getAudio();

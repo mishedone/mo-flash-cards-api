@@ -15,13 +15,13 @@ $app->get('/api/v1', function () use ($app) {
 
 $decks = new MicroCollection();
 $decks->setHandler(DeckController::class, true);
-$decks->get('/api/decks', 'listAction', 'deck-list');
-$decks->get('/api/decks/{slug}', 'getAction');
+$decks->get('/api/decks', 'list', 'deck-list');
+$decks->get('/api/decks/{slug}', 'get');
 $app->mount($decks);
 
 $textToSpeech = new MicroCollection();
 $textToSpeech->setHandler(TextToSpeechController::class, true);
-$textToSpeech->get('/api/text-to-speech/{text}', 'getAction');
+$textToSpeech->get('/api/text-to-speech/{text}', 'get');
 $app->mount($textToSpeech);
 
 // not found
