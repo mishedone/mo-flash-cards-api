@@ -5,24 +5,25 @@ use Phalcon\Mvc\Micro\Collection as MicroCollection;
 use DeckContext\Controller\DeckController;
 use ResourceContext\Controller\TextToSpeechController;
 
-$app->get('/api/v1', function () use ($app) {
-    return [
-        '_links' => [
-            'decks' => $app->url->get(['for' => 'deck-list']),
-        ]
-    ];
-});
-
 $decks = new MicroCollection();
 $decks->setHandler(DeckController::class, true);
-$decks->get('/api/decks', 'list', 'deck-list');
-$decks->get('/api/decks/{slug}', 'get');
+$decks->get('/decks', 'list', 'deck-list');
+$decks->get('/decks/{slug}', 'get', 'deck-get');
 $app->mount($decks);
 
 $textToSpeech = new MicroCollection();
 $textToSpeech->setHandler(TextToSpeechController::class, true);
-$textToSpeech->get('/api/text-to-speech/{text}', 'get');
+$textToSpeech->get('/text-to-speech/{text}', 'get', 'tts-get');
 $app->mount($textToSpeech);
+
+// root
+$app->get('/', function () use ($app) {
+    return [
+        '_links' => [
+            'decks' => $app->url->get(['for' => 'deck-list'])
+        ]
+    ];
+});
 
 // not found
 $app->notFound(function () use ($container) {
