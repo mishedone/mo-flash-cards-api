@@ -15,17 +15,32 @@ class DeckController extends Controller
     {
         $decks = $this->deckRepository->list();
 
-        return ['results' => array_map(function ($deck) {
+        return array_map(function ($deck) {
             return [
-                '_links' => [
-                    'cards' => $this->url->get([
-                        'for' => 'deck:card-list',
-                        'slug' => $deck->getSlug()
-                    ])
-                ],
                 'name' => $deck->getName(),
                 'slug' => $deck->getSlug()
             ];
-        }, $decks)];
+        }, $decks);
+    }
+
+    /**
+     * Reads details about certain deck.
+     *
+     * @param string $slug
+     * @return array
+     */
+    public function get($slug)
+    {
+        $deck = $this->deckRepository->findBySlug($slug);
+
+        if (!$deck) {
+            return $this->responseFactory->create404();
+        }
+
+        return [
+            'name' => $deck->getName(),
+            'slug' => $deck->getSlug(),
+            'cards' => $deck->getCards()
+        ];
     }
 }
